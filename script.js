@@ -30,15 +30,19 @@ onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
 
 if (menuToggle && nav) {
-  menuToggle.addEventListener("click", () => {
-    const open = nav.classList.toggle("is-open");
+  const setMenuOpen = (open) => {
+    nav.classList.toggle("is-open", open);
     menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    document.body.classList.toggle("menu-open", open);
+  };
+
+  menuToggle.addEventListener("click", () => {
+    setMenuOpen(!nav.classList.contains("is-open"));
   });
 
   nav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      nav.classList.remove("is-open");
-      menuToggle.setAttribute("aria-expanded", "false");
+      setMenuOpen(false);
     });
   });
 }
