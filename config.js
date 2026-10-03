@@ -4,7 +4,7 @@ window.KONSUL_CONFIG = {
   phoneTel: "+79777093393",
   email: "juristmsk09@gmail.com",
   /* Ник без @ или полная ссылка. Пусто = откроется «поделиться» с текстом заявки */
-  telegram: "",
+  telegram: "juristconsulmsk",
   whatsapp: "79777093393",
   max: ""
 };
