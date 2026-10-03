@@ -156,31 +156,42 @@ function setFormStatus(message, type) {
 }
 
 if (messengerLinks) {
-  const links = [];
+  const items = [];
   const tg = normalizeHandle(config.telegram);
   const wa = digitsOnly(config.whatsapp || config.phoneTel);
   const max = normalizeHandle(config.max);
 
   if (tg) {
     const href = /^https?:\/\//i.test(tg) ? tg : `https://t.me/${tg}`;
-    links.push(`<a href="${href}" target="_blank" rel="noopener noreferrer">Telegram</a>`);
+    items.push({ channel: "telegram", href, label: "Telegram" });
   }
   if (wa) {
-    links.push(`<a href="https://wa.me/${wa}" target="_blank" rel="noopener noreferrer">WhatsApp</a>`);
+    items.push({ channel: "whatsapp", href: `https://wa.me/${wa}`, label: "WhatsApp" });
   }
   if (max) {
     const href = /^https?:\/\//i.test(max) ? max : `https://max.ru/${max}`;
-    links.push(`<a href="${href}" target="_blank" rel="noopener noreferrer">MAX</a>`);
+    items.push({ channel: "max", href, label: "MAX" });
+  }
+  if (!items.length && wa) {
+    items.push({
+      channel: "whatsapp",
+      href: `https://wa.me/${digitsOnly(config.phoneTel || "79777093393")}`,
+      label: "WhatsApp"
+    });
+  } else if (!items.length) {
+    items.push({
+      channel: "whatsapp",
+      href: "https://wa.me/79777093393",
+      label: "WhatsApp"
+    });
   }
 
-  if (links.length) {
-    messengerLinks.innerHTML = links.join(" · ");
-  } else {
-    messengerLinks.innerHTML =
-      '<a href="https://wa.me/' +
-      digitsOnly(config.phoneTel || "79777093393") +
-      '" target="_blank" rel="noopener noreferrer">WhatsApp</a>';
-  }
+  messengerLinks.innerHTML = items
+    .map(
+      (item) =>
+        `<a href="${item.href}" data-channel="${item.channel}" target="_blank" rel="noopener noreferrer">${item.label}</a>`
+    )
+    .join("");
 }
 
 if (form) {

@@ -240,9 +240,24 @@
           </label>
           <p class="messenger-label">Отправить заявку через</p>
           <div class="messenger-actions">
-            <button class="btn btn-messenger" type="button" data-messenger="telegram">Telegram</button>
-            <button class="btn btn-messenger" type="button" data-messenger="whatsapp">WhatsApp</button>
-            <button class="btn btn-messenger" type="button" data-messenger="max">MAX</button>
+            <button class="btn btn-messenger btn-telegram" type="button" data-messenger="telegram" aria-label="Отправить в Telegram">
+              <svg class="messenger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M21.8 3.3 2.9 10.6c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 11.1-7c.5-.3 1-.1.6.2L10.6 15.3l-.4 4.6c.6 0 .9-.3 1.2-.6l2.9-2.8 6 4.4c1.1.6 1.9.3 2.2-1l3.7-17.4c.4-1.6-.6-2.3-1.7-1.8z"/>
+              </svg>
+              <span>Telegram</span>
+            </button>
+            <button class="btn btn-messenger btn-whatsapp" type="button" data-messenger="whatsapp" aria-label="Отправить в WhatsApp">
+              <svg class="messenger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M12 2a9.9 9.9 0 0 0-8.5 14.9L2 22l5.3-1.4A9.9 9.9 0 1 0 12 2zm5.8 14c-.2.7-1.3 1.2-2.1 1.4-.5.1-1.2.2-3.5-.7-2.9-1.2-4.8-4.2-4.9-4.4-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 1-2.2.2-.2.5-.3.8-.3h.6c.2 0 .4 0 .6.5.2.6.8 2 .9 2.1.1.2.1.4 0 .6l-.4.7c-.1.2-.3.4-.1.7.2.4.8 1.4 1.8 2.2 1.2 1 2.2 1.3 2.6 1.5.3.1.5.1.7-.1l1-.1.1c.2 0 1.3-.5 1.5-1.1.2-.5.2-1 .1-1.1-.1-.1-.3-.2-.6-.4z"/>
+              </svg>
+              <span>WhatsApp</span>
+            </button>
+            <button class="btn btn-messenger btn-max" type="button" data-messenger="max" aria-label="Отправить в MAX">
+              <svg class="messenger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M12 2C7.6 2 4 5.2 4 9.3c0 2.5 1.3 4.7 3.3 6.1V20l3.4-1.9c.4.1.9.1 1.3.1 4.4 0 8-3.2 8-7.3S16.4 2 12 2zm.8 9.9-2-2.1-3.1 2.1 3.5-3.7 2 2.1 3.1-2.1-3.5 3.7z"/>
+              </svg>
+              <span>MAX</span>
+            </button>
           </div>
           <p class="form-status" data-form-status hidden></p>
           <p class="form-note">Заполните поля и выберите мессенджер — откроется чат с готовым текстом заявки.</p>
