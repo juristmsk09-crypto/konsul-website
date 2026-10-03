@@ -606,6 +606,48 @@ p {
   margin-top: 0.4rem;
 }
 
+.messenger-label {
+  margin: 0.4rem 0 0;
+  color: var(--gold);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.messenger-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.btn-messenger {
+  width: 100%;
+  justify-content: center;
+  border: 1px solid rgba(212, 175, 105, 0.55);
+  background: transparent;
+  color: var(--paper);
+  padding: 0.85rem 0.6rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
+.btn-messenger:hover {
+  border-color: var(--gold);
+  background: rgba(212, 175, 105, 0.12);
+  color: var(--gold-soft);
+}
+
+.messenger-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.7rem;
+  color: var(--paper);
+}
+
+.messenger-links a {
+  color: var(--paper);
+}
+
 .form-note {
   margin: 0;
   color: var(--muted);
@@ -716,6 +758,10 @@ p {
 }
 
 @media (max-width: 720px) {
+  .messenger-actions {
+    grid-template-columns: 1fr;
+  }
+
   .nav,
   .header-cta {
     display: none;

@@ -66,55 +66,161 @@ if ("IntersectionObserver" in window) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
 }
 
+function digitsOnly(value) {
+  return String(value || "").replace(/\D/g, "");
+}
+
+function normalizeHandle(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  if (/^https?:\/\//i.test(raw)) return raw;
+  return raw.replace(/^@/, "");
+}
+
+function buildRequestText(fields) {
+  return [
+    "Заявка с сайта КОНСУЛ",
+    "",
+    `Имя: ${fields.name || "—"}`,
+    `Телефон: ${fields.phone || "—"}`,
+    "",
+    "Суть вопроса:",
+    fields.message || "—"
+  ].join("\n");
+}
+
+function messengerUrl(channel, text) {
+  const encoded = encodeURIComponent(text);
+  const telegram = normalizeHandle(config.telegram);
+  const max = normalizeHandle(config.max);
+  const whatsapp = digitsOnly(config.whatsapp || config.phoneTel);
+
+  if (channel === "whatsapp") {
+    if (!whatsapp) return "";
+    return `https://wa.me/${whatsapp}?text=${encoded}`;
+  }
+
+  if (channel === "telegram") {
+    if (/^https?:\/\//i.test(telegram)) {
+      return telegram;
+    }
+    if (telegram) {
+      return `https://t.me/${telegram}`;
+    }
+    return `https://t.me/share/url?url=${encodeURIComponent("https://consulmsk.ru")}&text=${encoded}`;
+  }
+
+  if (channel === "max") {
+    if (/^https?:\/\//i.test(max)) {
+      return max;
+    }
+    if (max) {
+      return `https://max.ru/${max}`;
+    }
+    return `https://max.ru/:share?text=${encoded}`;
+  }
+
+  return "";
+}
+
+function directChat(channel) {
+  const telegram = normalizeHandle(config.telegram);
+  const max = normalizeHandle(config.max);
+  if (channel === "telegram") return Boolean(telegram);
+  if (channel === "max") return Boolean(max);
+  if (channel === "whatsapp") return Boolean(digitsOnly(config.whatsapp || config.phoneTel));
+  return false;
+}
+
+async function copyText(text) {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch {
+    /* ignore */
+  }
+  return false;
+}
+
 const form = document.querySelector(".contact-form");
 const formStatus = document.querySelector("[data-form-status]");
+const messengerLinks = document.querySelector("[data-messenger-links]");
+
+function setFormStatus(message, type) {
+  if (!formStatus) return;
+  formStatus.hidden = false;
+  formStatus.textContent = message;
+  formStatus.className = type ? `form-status ${type}` : "form-status";
+}
+
+if (messengerLinks) {
+  const links = [];
+  const tg = normalizeHandle(config.telegram);
+  const wa = digitsOnly(config.whatsapp || config.phoneTel);
+  const max = normalizeHandle(config.max);
+
+  if (tg) {
+    const href = /^https?:\/\//i.test(tg) ? tg : `https://t.me/${tg}`;
+    links.push(`<a href="${href}" target="_blank" rel="noopener noreferrer">Telegram</a>`);
+  }
+  if (wa) {
+    links.push(`<a href="https://wa.me/${wa}" target="_blank" rel="noopener noreferrer">WhatsApp</a>`);
+  }
+  if (max) {
+    const href = /^https?:\/\//i.test(max) ? max : `https://max.ru/${max}`;
+    links.push(`<a href="${href}" target="_blank" rel="noopener noreferrer">MAX</a>`);
+  }
+
+  if (links.length) {
+    messengerLinks.innerHTML = links.join(" · ");
+  } else {
+    messengerLinks.innerHTML =
+      '<a href="https://wa.me/' +
+      digitsOnly(config.phoneTel || "79777093393") +
+      '" target="_blank" rel="noopener noreferrer">WhatsApp</a>';
+  }
+}
 
 if (form) {
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  const messengerButtons = form.querySelectorAll("[data-messenger]");
 
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const email = config.email || "juristmsk09@gmail.com";
-    const data = new FormData(form);
-
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Отправляем…";
-    }
-    if (formStatus) {
-      formStatus.hidden = false;
-      formStatus.textContent = "Отправляем заявку…";
-      formStatus.className = "form-status";
-    }
-
-    try {
-      const response = await fetch(`https://formsubmit.co/ajax/${email}`, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: data
-      });
-
-      if (!response.ok) {
-        throw new Error("send_failed");
+  messengerButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      if (!form.reportValidity()) {
+        setFormStatus("Заполните обязательные поля и согласие на обработку данных.", "is-error");
+        return;
       }
 
-      form.reset();
-      if (formStatus) {
-        formStatus.textContent = "Заявка отправлена. Мы свяжемся с вами.";
-        formStatus.className = "form-status is-success";
+      const fields = Object.fromEntries(new FormData(form).entries());
+      const text = buildRequestText(fields);
+      const channel = button.getAttribute("data-messenger");
+      const url = messengerUrl(channel, text);
+
+      if (!url) {
+        setFormStatus("Мессенджер не настроен. Укажите контакт в config.js.", "is-error");
+        return;
       }
-      window.location.hash = "contact";
-    } catch (error) {
-      if (formStatus) {
-        formStatus.textContent =
-          "Не удалось отправить через сервис. Напишите напрямую на " + email;
-        formStatus.className = "form-status is-error";
+
+      const copied = await copyText(text);
+      window.open(url, "_blank", "noopener,noreferrer");
+
+      if (channel === "whatsapp") {
+        setFormStatus("Открыт WhatsApp с текстом заявки. Нажмите «Отправить» в чате.", "is-success");
+      } else if (directChat(channel) && copied) {
+        setFormStatus(
+          "Чат открыт, текст заявки скопирован — вставьте его в сообщение (Ctrl+V) и отправьте.",
+          "is-success"
+        );
+      } else if (copied) {
+        setFormStatus(
+          "Откроется мессенджер с текстом заявки. Выберите чат КОНСУЛ и отправьте сообщение.",
+          "is-success"
+        );
+      } else {
+        setFormStatus("Мессенджер открыт. Отправьте заявку в чат КОНСУЛ.", "is-success");
       }
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Отправить запрос";
-      }
-    }
+    });
   });
 }

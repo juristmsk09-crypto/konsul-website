@@ -208,6 +208,10 @@
               <a href="mailto:juristmsk09@gmail.com">juristmsk09@gmail.com</a>
             </li>
             <li>
+              <span>Мессенджеры</span>
+              <div class="messenger-links" data-messenger-links></div>
+            </li>
+            <li>
               <span>Адрес</span>
               <address>Москва, Киевское шоссе, 22-й км, дом 4, строение 2, 3-й этаж, помещение 1</address>
             </li>
@@ -217,21 +221,14 @@
             </li>
           </ul>
         </div>
-        <form class="contact-form" action="https://formsubmit.co/juristmsk09@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="Заявка с сайта КОНСУЛ" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
+        <form class="contact-form">
           <label>
             Имя
             <input type="text" name="name" required autocomplete="name" placeholder="Как к вам обращаться" />
           </label>
           <label>
             Телефон
-            <input type="tel" name="phone" autocomplete="tel" placeholder="+7 (___) ___-__-__" />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" required autocomplete="email" placeholder="you@email.com" />
+            <input type="tel" name="phone" required autocomplete="tel" placeholder="+7 (___) ___-__-__" />
           </label>
           <label>
             Суть вопроса
@@ -241,9 +238,14 @@
             <input type="checkbox" name="consent" value="yes" required />
             <span>Согласен(на) на обработку персональных данных согласно <a href="privacy.html">политике</a></span>
           </label>
-          <button class="btn btn-gold" type="submit">Отправить запрос</button>
+          <p class="messenger-label">Отправить заявку через</p>
+          <div class="messenger-actions">
+            <button class="btn btn-messenger" type="button" data-messenger="telegram">Telegram</button>
+            <button class="btn btn-messenger" type="button" data-messenger="whatsapp">WhatsApp</button>
+            <button class="btn btn-messenger" type="button" data-messenger="max">MAX</button>
+          </div>
           <p class="form-status" data-form-status hidden></p>
-          <p class="form-note">Заявка уходит на почту компании. При первой отправке formsubmit.co попросит подтвердить email.</p>
+          <p class="form-note">Заполните поля и выберите мессенджер — откроется чат с готовым текстом заявки.</p>
         </form>
       </div>
     </section>
