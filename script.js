@@ -156,35 +156,28 @@ function setFormStatus(message, type) {
 }
 
 if (messengerLinks) {
-  const items = [];
   const tg = normalizeHandle(config.telegram);
-  const wa = digitsOnly(config.whatsapp || config.phoneTel);
+  const wa = digitsOnly(config.whatsapp || config.phoneTel || "79777093393");
   const max = normalizeHandle(config.max);
+  const shareText = encodeURIComponent("Здравствуйте! Пишу с сайта КОНСУЛ.");
 
-  if (tg) {
-    const href = /^https?:\/\//i.test(tg) ? tg : `https://t.me/${tg}`;
-    items.push({ channel: "telegram", href, label: "Telegram" });
-  }
-  if (wa) {
-    items.push({ channel: "whatsapp", href: `https://wa.me/${wa}`, label: "WhatsApp" });
-  }
-  if (max) {
-    const href = /^https?:\/\//i.test(max) ? max : `https://max.ru/${max}`;
-    items.push({ channel: "max", href, label: "MAX" });
-  }
-  if (!items.length && wa) {
-    items.push({
-      channel: "whatsapp",
-      href: `https://wa.me/${digitsOnly(config.phoneTel || "79777093393")}`,
-      label: "WhatsApp"
-    });
-  } else if (!items.length) {
-    items.push({
-      channel: "whatsapp",
-      href: "https://wa.me/79777093393",
-      label: "WhatsApp"
-    });
-  }
+  const telegramHref = /^https?:\/\//i.test(tg)
+    ? tg
+    : tg
+      ? `https://t.me/${tg}`
+      : `https://t.me/share/url?url=${encodeURIComponent("https://consulmsk.ru")}&text=${shareText}`;
+
+  const maxHref = /^https?:\/\//i.test(max)
+    ? max
+    : max
+      ? `https://max.ru/${max}`
+      : `https://max.ru/:share?text=${shareText}`;
+
+  const items = [
+    { channel: "telegram", href: telegramHref, label: "Telegram" },
+    { channel: "whatsapp", href: `https://wa.me/${wa}`, label: "WhatsApp" },
+    { channel: "max", href: maxHref, label: "MAX" }
+  ];
 
   messengerLinks.innerHTML = items
     .map(
