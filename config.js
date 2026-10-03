@@ -6,5 +6,5 @@ window.KONSUL_CONFIG = {
   /* Ник без @ или полная ссылка. Пусто = откроется «поделиться» с текстом заявки */
   telegram: "juristconsulmsk",
   whatsapp: "79777093393",
-  max: ""
+  max: "https://max.ru/u/f9LHodD0cOK_1GkTcPmL5Rc6UQ0v4UJS1k1Z1MBNt-f_8qHz5YBWthog4oU"
 };
