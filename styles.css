@@ -1270,10 +1270,6 @@ body.callback-fab-hidden .callback-fab {
   .footer-legal {
     text-align: left;
   }
-
-  .header-cta--secondary {
-    display: none;
-  }
 }
 
 @media (max-width: 720px) {
