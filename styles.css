@@ -763,7 +763,7 @@ body:has(.hero) .site-header:not(.is-scrolled) .menu-toggle span {
 
 .messenger-actions {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.75rem;
 }
 
@@ -794,17 +794,6 @@ body:has(.hero) .site-header:not(.is-scrolled) .menu-toggle span {
 .btn-telegram:hover {
   background: #1b8ec7;
   color: #fff;
-}
-
-.btn-whatsapp {
-  background: #25d366;
-  border-color: #1ebe57;
-  color: #073b1a;
-}
-
-.btn-whatsapp:hover {
-  background: #1fbe5a;
-  color: #073b1a;
 }
 
 .btn-max {
@@ -842,15 +831,6 @@ body:has(.hero) .site-header:not(.is-scrolled) .menu-toggle span {
 
 .messenger-links a[data-channel="telegram"]:hover {
   background: rgba(34, 158, 217, 0.16);
-}
-
-.messenger-links a[data-channel="whatsapp"] {
-  border-color: rgba(37, 211, 102, 0.55);
-  color: #9ae8bb;
-}
-
-.messenger-links a[data-channel="whatsapp"]:hover {
-  background: rgba(37, 211, 102, 0.14);
 }
 
 .messenger-links a[data-channel="max"] {

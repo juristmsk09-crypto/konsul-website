@@ -70,10 +70,6 @@ if ("IntersectionObserver" in window) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
 }
 
-function digitsOnly(value) {
-  return String(value || "").replace(/\D/g, "");
-}
-
 function normalizeHandle(value) {
   const raw = String(value || "").trim();
   if (!raw) return "";
@@ -97,12 +93,6 @@ function messengerUrl(channel, text) {
   const encoded = encodeURIComponent(text);
   const telegram = normalizeHandle(config.telegram);
   const max = normalizeHandle(config.max);
-  const whatsapp = digitsOnly(config.whatsapp || config.phoneTel);
-
-  if (channel === "whatsapp") {
-    if (!whatsapp) return "";
-    return `https://wa.me/${whatsapp}?text=${encoded}`;
-  }
 
   if (channel === "telegram") {
     if (/^https?:\/\//i.test(telegram)) {
@@ -132,7 +122,6 @@ function directChat(channel) {
   const max = normalizeHandle(config.max);
   if (channel === "telegram") return Boolean(telegram);
   if (channel === "max") return Boolean(max);
-  if (channel === "whatsapp") return Boolean(digitsOnly(config.whatsapp || config.phoneTel));
   return false;
 }
 
@@ -161,7 +150,6 @@ function setFormStatus(message, type) {
 
 if (messengerLinks) {
   const tg = normalizeHandle(config.telegram);
-  const wa = digitsOnly(config.whatsapp || config.phoneTel || "79777093393");
   const max = normalizeHandle(config.max);
   const shareText = encodeURIComponent("Здравствуйте! Пишу с сайта КОНСУЛ.");
 
@@ -179,7 +167,6 @@ if (messengerLinks) {
 
   const items = [
     { channel: "telegram", href: telegramHref, label: "Telegram" },
-    { channel: "whatsapp", href: `https://wa.me/${wa}`, label: "WhatsApp" },
     { channel: "max", href: maxHref, label: "MAX" }
   ];
 
@@ -214,9 +201,7 @@ if (form) {
       const copied = await copyText(text);
       window.open(url, "_blank", "noopener,noreferrer");
 
-      if (channel === "whatsapp") {
-        setFormStatus("Открыт WhatsApp с текстом заявки. Нажмите «Отправить» в чате.", "is-success");
-      } else if (directChat(channel) && copied) {
+      if (directChat(channel) && copied) {
         setFormStatus(
           "Чат открыт, текст заявки скопирован — вставьте его в сообщение (Ctrl+V) и отправьте.",
           "is-success"
