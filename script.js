@@ -91,18 +91,7 @@ function buildRequestText(fields) {
 
 function messengerUrl(channel, text) {
   const encoded = encodeURIComponent(text);
-  const telegram = normalizeHandle(config.telegram);
   const max = normalizeHandle(config.max);
-
-  if (channel === "telegram") {
-    if (/^https?:\/\//i.test(telegram)) {
-      return telegram;
-    }
-    if (telegram) {
-      return `https://t.me/${telegram}`;
-    }
-    return `https://t.me/share/url?url=${encodeURIComponent("https://consulmsk.ru")}&text=${encoded}`;
-  }
 
   if (channel === "max") {
     if (/^https?:\/\//i.test(max)) {
@@ -118,9 +107,7 @@ function messengerUrl(channel, text) {
 }
 
 function directChat(channel) {
-  const telegram = normalizeHandle(config.telegram);
   const max = normalizeHandle(config.max);
-  if (channel === "telegram") return Boolean(telegram);
   if (channel === "max") return Boolean(max);
   return false;
 }
@@ -149,15 +136,8 @@ function setFormStatus(message, type) {
 }
 
 if (messengerLinks) {
-  const tg = normalizeHandle(config.telegram);
   const max = normalizeHandle(config.max);
   const shareText = encodeURIComponent("Здравствуйте! Пишу с сайта КОНСУЛ.");
-
-  const telegramHref = /^https?:\/\//i.test(tg)
-    ? tg
-    : tg
-      ? `https://t.me/${tg}`
-      : `https://t.me/share/url?url=${encodeURIComponent("https://consulmsk.ru")}&text=${shareText}`;
 
   const maxHref = /^https?:\/\//i.test(max)
     ? max
@@ -166,7 +146,6 @@ if (messengerLinks) {
       : `https://max.ru/:share?text=${shareText}`;
 
   const items = [
-    { channel: "telegram", href: telegramHref, label: "Telegram" },
     { channel: "max", href: maxHref, label: "MAX" }
   ];
 
