@@ -361,6 +361,26 @@ body:has(.hero) .site-header:not(.is-scrolled) .menu-toggle span {
   line-height: 1.2;
 }
 
+.hero-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 1.1rem;
+  color: var(--gold-soft);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.hero-note::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.65;
+}
+
 .hero-lead {
   max-width: 32rem;
   margin-bottom: 1.8rem;
