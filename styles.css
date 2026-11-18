@@ -1386,6 +1386,16 @@ body.callback-fab-hidden .callback-fab {
     width: 100%;
   }
 
+  .hero-note {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-note::before {
+    display: none;
+  }
+
   .hero-actions .btn {
     flex: 1 1 100%;
   }
