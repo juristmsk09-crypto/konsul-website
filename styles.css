@@ -224,6 +224,11 @@ body:has(.hero) .site-header:not(.is-scrolled) .nav a:hover {
   color: var(--gold-soft);
 }
 
+body:has(.hero) .site-header:not(.is-scrolled) .nav a,
+body:has(.hero) .site-header:not(.is-scrolled) .brand {
+  text-shadow: 0 1px 14px rgba(8, 20, 32, 0.6);
+}
+
 .header-cta {
   padding: 0.6rem 1rem;
   border: 1px solid rgba(176, 137, 61, 0.45);
