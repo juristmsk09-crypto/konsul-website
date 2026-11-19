@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261118i" />
+  <link rel="stylesheet" href="styles.css?v=20261118l" />
 </head>
 <body>
   <header class="site-header">
@@ -29,7 +29,7 @@
       <a href="cases.html" aria-current="page">Кейсы</a>
       <a href="index.html#about">О компании</a>
       <a href="index.html#contact">Контакты</a>
-      <a class="header-cta" href="index.html#contact">Консультация</a>
+      <a class="header-cta header-cta--solid js-callback" href="index.html#contact">Перезвоните мне</a>
     </nav>
     <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false">
       <span></span><span></span>
@@ -37,11 +37,24 @@
   </header>
 
   <main>
-    <section class="cases">
-      <div class="section-head">
-        <p class="eyebrow">Кейсы</p>
-        <h2>Примеры дел</h2>
+    <section class="page-hero">
+      <nav class="breadcrumb" aria-label="Хлебные крошки">
+        <a href="index.html">Главная</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Кейсы</span>
+      </nav>
+      <div class="page-hero-inner">
+        <span class="page-hero-icon"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 3h9l3 3v15H6z"/><path d="M9 12h6M9 16h4M15 3v3h3"/></svg></span>
+        <div>
+          <p class="eyebrow">Кейсы</p>
+          <h1>Примеры дел</h1>
+          <p class="section-lead">Как проходили дела и чем закончились — с фактами и результатом.</p>
+        </div>
       </div>
+    </section>
+
+    <section class="cases">
+      
       <article class="case-study">
         <span class="case-tag">115-ФЗ · Банковские споры</span>
         <h3>Признание незаконной блокировки счёта по 115-ФЗ и взыскание убытков с банка</h3>
@@ -116,7 +129,7 @@
     <p class="footer-legal">© <span data-year></span> ООО «Консул». ИНН 7731663951. Информация на сайте не является публичной офертой.</p>
   </footer>
 
-  <script src="config.js?v=20261118i"></script>
-  <script src="script.js?v=20261118i"></script>
+  <script src="config.js?v=20261118l"></script>
+  <script src="script.js?v=20261118l"></script>
 </body>
 </html>
