@@ -372,15 +372,21 @@ function addFloatingCallback() {
 
 addFloatingCallback();
 
-const contactSection = document.querySelector("#contact");
-if (contactSection && "IntersectionObserver" in window) {
+const fabHiders = document.querySelectorAll("#contact, .site-footer");
+if (fabHiders.length && "IntersectionObserver" in window) {
+  const visibleHiders = new Set();
   const fabObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        document.body.classList.toggle("callback-fab-hidden", entry.isIntersecting);
+        if (entry.isIntersecting) {
+          visibleHiders.add(entry.target);
+        } else {
+          visibleHiders.delete(entry.target);
+        }
       });
+      document.body.classList.toggle("callback-fab-hidden", visibleHiders.size > 0);
     },
     { threshold: 0.12 }
   );
-  fabObserver.observe(contactSection);
+  fabHiders.forEach((element) => fabObserver.observe(element));
 }
