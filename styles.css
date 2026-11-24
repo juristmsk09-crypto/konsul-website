@@ -353,7 +353,7 @@ body:has(.hero) .site-header:not(.is-scrolled) .menu-toggle span {
   inset: 0;
   background:
     linear-gradient(115deg, rgba(11, 31, 51, 0.42), rgba(11, 31, 51, 0.08)),
-    url("assets/emblem.svg") 74% 34% / min(66vmin, 600px) no-repeat,
+    url("assets/emblem.svg") 80% 40% / min(62vmin, 560px) no-repeat,
     radial-gradient(ellipse at 72% 28%, #2a4d73 0%, var(--navy) 58%);
   transform: scale(1.04);
   animation: heroDrift 18s ease-in-out infinite alternate;
@@ -1839,8 +1839,8 @@ body.callback-fab-hidden .callback-fab {
   }
 
   .hero-media {
-    background-position: 50% 10%;
-    background-size: min(96vmin, 420px);
+    background-position: 50% 5%;
+    background-size: min(88vmin, 380px);
   }
 
   .hero-brand {
