@@ -186,9 +186,9 @@ p {
   gap: 0.7rem;
   color: var(--navy);
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.02rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   transition: color 0.3s ease;
 }
 
@@ -330,8 +330,8 @@ body:has(.hero) .site-header:not(.is-scrolled) .menu-toggle span {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(115deg, rgba(11, 31, 51, 0.35), rgba(11, 31, 51, 0.15)),
-    url("assets/emblem.jpg") center / cover no-repeat,
+    linear-gradient(115deg, rgba(11, 31, 51, 0.42), rgba(11, 31, 51, 0.08)),
+    url("assets/emblem.svg") 74% 34% / min(66vmin, 600px) no-repeat,
     radial-gradient(ellipse at 72% 28%, #2a4d73 0%, var(--navy) 58%);
   transform: scale(1.04);
   animation: heroDrift 18s ease-in-out infinite alternate;
@@ -355,10 +355,11 @@ body:has(.hero) .site-header:not(.is-scrolled) .menu-toggle span {
 .hero-brand {
   margin: 0 0 1.1rem;
   font-family: var(--font-display);
-  font-size: clamp(3.6rem, 10vw, 7.4rem);
+  font-size: clamp(1.7rem, 4.6vw, 3.2rem);
   font-weight: 700;
   letter-spacing: 0.16em;
-  line-height: 0.9;
+  line-height: 1.05;
+  text-transform: uppercase;
   color: var(--gold-soft);
 }
 
@@ -1795,9 +1796,14 @@ body.callback-fab-hidden .callback-fab {
     padding: 6.5rem 5vw 3.5rem;
   }
 
+  .hero-media {
+    background-position: 50% 10%;
+    background-size: min(96vmin, 420px);
+  }
+
   .hero-brand {
-    letter-spacing: 0.1em;
-    font-size: clamp(3rem, 16vw, 4.2rem);
+    letter-spacing: 0.08em;
+    font-size: clamp(1.45rem, 6.4vw, 2rem);
   }
 
   .hero h1 {

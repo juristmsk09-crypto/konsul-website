@@ -79,7 +79,7 @@ function normalizeHandle(value) {
 
 function buildRequestText(fields) {
   return [
-    "Заявка с сайта КОНСУЛ",
+    "Заявка с сайта «Алиев и партнеры»",
     "",
     `Имя: ${fields.name || "—"}`,
     `Телефон: ${fields.phone || "—"}`,
@@ -137,7 +137,7 @@ function setFormStatus(message, type) {
 
 if (messengerLinks) {
   const max = normalizeHandle(config.max);
-  const shareText = encodeURIComponent("Здравствуйте! Пишу с сайта КОНСУЛ.");
+  const shareText = encodeURIComponent("Здравствуйте! Пишу с сайта «Алиев и партнеры».");
 
   const maxHref = /^https?:\/\//i.test(max)
     ? max
@@ -187,11 +187,11 @@ if (form) {
         );
       } else if (copied) {
         setFormStatus(
-          "Откроется мессенджер с текстом заявки. Выберите чат КОНСУЛ и отправьте сообщение.",
+          "Откроется мессенджер с текстом заявки. Выберите чат «Алиев и партнеры» и отправьте сообщение.",
           "is-success"
         );
       } else {
-        setFormStatus("Мессенджер открыт. Отправьте заявку в чат КОНСУЛ.", "is-success");
+        setFormStatus("Мессенджер открыт. Отправьте заявку в чат «Алиев и партнеры».", "is-success");
       }
     });
   });
@@ -340,7 +340,7 @@ document.addEventListener("submit", (event) => {
   const phone = String(fields.get("phone") || "").trim();
 
   callbackRequestText = [
-    "Заявка с сайта КОНСУЛ",
+    "Заявка с сайта «Алиев и партнеры»",
     "Обратный звонок",
     "",
     `Имя: ${name || "—"}`,
@@ -349,7 +349,7 @@ document.addEventListener("submit", (event) => {
     `Страница: ${window.location.href}`
   ].join("\r\n");
 
-  const subject = "Перезвоните мне — заявка с сайта КОНСУЛ";
+  const subject = "Перезвоните мне — заявка с сайта «Алиев и партнеры»";
   const mailto = `mailto:${config.email || "juristmsk09@gmail.com"}?subject=${encodeURIComponent(
     subject
   )}&body=${encodeURIComponent(callbackRequestText)}`;
@@ -372,7 +372,7 @@ function addFloatingCallback() {
 
 addFloatingCallback();
 
-const fabHiders = document.querySelectorAll("#contact, .site-footer");
+const fabHiders = document.querySelectorAll("#contact, .site-footer, .page-aside");
 if (fabHiders.length && "IntersectionObserver" in window) {
   const visibleHiders = new Set();
   const fabObserver = new IntersectionObserver(
